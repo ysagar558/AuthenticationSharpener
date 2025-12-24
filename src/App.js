@@ -28,6 +28,22 @@ function App() {
     checkToken();
   },[ctx]);
 
+  const sessionDuration=5*60*1000;
+  useEffect(()=>{
+    const validateSession=()=>{
+      const loginTime=localStorage.getItem('loginTimeStamp');
+      if(!loginTime) return;
+      const currentTime=new Date().getTime();
+      const elapsed=currentTime-parseInt(loginTime);
+      if(elapsed>sessionDuration){
+        ctx.logout();
+      }
+    }
+    validateSession();
+    const interval=setInterval(validateSession,10000);
+    return ()=>clearInterval(interval);
+  },[]);
+
   return (
     <Layout>
       <Switch>

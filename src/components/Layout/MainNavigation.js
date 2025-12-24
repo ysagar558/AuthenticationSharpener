@@ -7,11 +7,11 @@ import AuthContext from '../../store/auth-context';
 const MainNavigation = () => {
   const authCtx=useContext(AuthContext);
   const isLoggedin=authCtx.isLoggedin;
-  const history=useHistory();
+  // const history=useHistory();
 
   const logoutHandler=()=>{
     authCtx.logout();
-    history.replace("/auth");
+    
   }
   return (
     <header className={classes.header}>

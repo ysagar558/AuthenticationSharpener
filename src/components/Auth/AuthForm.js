@@ -1,4 +1,4 @@
-import { useState, useRef,useContext } from 'react';
+import { useState, useRef,useContext,useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import classes from './AuthForm.module.css';
@@ -60,6 +60,10 @@ const AuthForm = () => {
       }
     }).then((data) => {
       // console.log(data);
+      const now=new Date().getTime();
+      localStorage.setItem('tokend',data.idToken);
+      localStorage.setItem('loginTimeStamp',now.toString());
+
       authCtx.login(data.idToken);
       history.replace("/profile");
     }).catch((err) => {
@@ -68,7 +72,7 @@ const AuthForm = () => {
     });
 
   }
-
+  
   return (
     <section className={classes.auth}>
       <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
